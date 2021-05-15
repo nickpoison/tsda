@@ -10,10 +10,10 @@ Using R](http://www.stat.pitt.edu/stoffer/tsda/) but the old entry page will rem
 
 -  You can also download the file `Rcode.md` and use it directly:
 
-    - For example, with [Notepad++](https://notepad-plus-plus.org/) and [NpptoR](https://sourceforge.net/projects/npptor/files/npptor%20installer/), just change the file name to `textRcode.R` and you're off...
-    - or use it in [VSCode](https://code.visualstudio.com/) (probably change the name to `textRcode.r` also) ...
+    - For example, with [Notepad++](https://notepad-plus-plus.org/) and [NpptoR](https://sourceforge.net/projects/npptor/files/npptor%20installer/), just change the file name to `Rcode.R` and you're off...
+    - or use it in [VSCode](https://code.visualstudio.com/) (probably change the name to `Rcode.r` also) ...
     - or use it with [RStudio](https://www.rstudio.com/products/rstudio/download/#download) for all your business needs.
-     - The stuff that used to be here is now in the folder Old_Stuff.   
+
 
   &#9940; Please note that RStudio and VSCode collect personal information.
 	See	 [RStudio policy guide](https://www.rstudio.com/about/privacy-policy/), especially 	the section on 'Information We Collect'.  And see [VSCode policy guide](https://code.visualstudio.com/docs/getstarted/telemetry), which also tells you how to turn off sending usage data to Microsoft.  
