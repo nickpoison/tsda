@@ -169,7 +169,7 @@ Example 2.25
 ```r
 x = rnorm(100)
 y = lag(x,-5) + rnorm(100)
-ccf(y, x, ylab="CCovF", type="covariance")
+ccf2(y, x, ylab="CCovF", type="covariance")
 ```
 
 
