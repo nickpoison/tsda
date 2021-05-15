@@ -694,15 +694,19 @@ sarima(log(varve), 1, 1, 1, no.constant=TRUE) # ARIMA(1,1,1)
 
 Example 5.9 
 ```r
-uspop = c(75.995, 91.972, 105.711, 123.203, 131.669,150.697, 179.323, 203.212, 226.505, 249.633, 281.422, 308.745)
+uspop = c(75.995, 91.972, 105.711, 123.203, 131.669,150.697, 
+         179.323, 203.212, 226.505, 249.633, 281.422, 308.745)
 uspop = ts(uspop, start=1900, freq=.1)
 t = time(uspop) - 1955
 reg = lm( uspop~ t+I(t^2)+I(t^3)+I(t^4)+I(t^5)+I(t^6)+I(t^7)+I(t^8) )
 b = as.vector(reg$coef)
-g = function(t){  b[1] + b[2]*(t-1955) + b[3]*(t-1955)^2 + b[4]*(t-1955)^3 + b[5]*(t-1955)^4 + b[6]*(t-1955)^5 + b[7]*(t-1955)^6 + b[8]*(t-1955)^7 + b[9]*(t-1955)^8
+g = function(t){  b[1] + b[2]*(t-1955) + b[3]*(t-1955)^2 + b[4]*(t-1955)^3 +
+                  b[5]*(t-1955)^4 + b[6]*(t-1955)^5 + b[7]*(t-1955)^6 + 
+                  b[8]*(t-1955)^7 + b[9]*(t-1955)^8
 }
 par(mar=c(2,2.5,.5,0)+.5, mgp=c(1.6,.6,0))
-curve(g, 1900, 2024, ylab="Population", xlab="Year", main="U.S. Population by Official Census", panel.first=Grid(), cex.main=1, font.main=1, col=4)
+curve(g, 1900, 2024, ylab="Population", xlab="Year", cex.main=1, font.main=1, 
+      col=4, main="U.S. Population by Official Census", panel.first=Grid())
 abline(v=seq(1910,2020,by=20), lty=1, col=gray(.9))
 points(time(uspop), uspop, pch=21, bg=rainbow(12), cex=1.25)
 mtext(expression(""%*% 10^6), side=2, line=1.5, adj=.95)
@@ -950,7 +954,8 @@ Periodogram... Bad!
 ```r
 u = mvspec(rnorm(1000), col=5) # periodogram
 abline(h=1, col=2, lwd=5)      # true spectrum
-lines(u$freq, filter(u$spec, filter=rep(1,101)/101, circular=TRUE), col=4, lwd=2) # add the smooth
+lines(u$freq, filter(u$spec, filter=rep(1,101)/101, circular=TRUE), 
+       col=4, lwd=2) # add the smooth
 ```
 
 Example 7.5
@@ -990,8 +995,10 @@ Example 7.7
 (dm = kernel("modified.daniell", c(3,3))) # for a list
 # the figure with both kernels
 par(mfrow=1:2, mar=c(3,3,2,1), mgp=c(1.6,.6,0))
-plot(kernel("modified.daniell", c(3,3)), ylab=expression(h[~k]), cex.main=1, col=4,  panel.first=Grid())
-plot(kernel("modified.daniell", c(3,3,3)), ylab=expression(h[~k]), cex.main=1, col=4,  panel.first=Grid())
+plot(kernel("modified.daniell", c(3,3)), ylab=expression(h[~k]), 
+      cex.main=1, col=4,  panel.first=Grid())
+plot(kernel("modified.daniell", c(3,3,3)), ylab=expression(h[~k]), 
+      cex.main=1, col=4,  panel.first=Grid())
 #
 par(mfrow=c(2,1))
 sois = mvspec(soi, spans=c(7,7), taper=.1, col=5, lwd=2)
@@ -1153,7 +1160,7 @@ Example 8.5
 ```r
 d = 0.3727893; p = c(1)
 for (k in 1:30){ p[k+1] = (k-d)*p[k]/(k+1) }
-tsplot(1:30, p[-1], ylab=expression(pi(d)), lwd=2, xlab="Index", type="h", col="dodgerblue3")
+tsplot(1:30, p[-1], ylab=expression(pi(d)), lwd=2, xlab="Index", type="h", col=4)
 library(arfima)
 summary(varve.fd <- arfima(log(varve), order = c(0,0,0)))
 # residuals
@@ -1167,7 +1174,7 @@ acf1(innov[[1]], main="Frac Diff")
 Example 8.8
 ```r
 u = ssm(gtemp_land, A=1, alpha=.01, phi=1, sigw=.01, sigv=.1)
-tsplot(gtemp_land, col="dodgerblue3", type="o", pch=20, ylab="Temperature Deviations")
+tsplot(gtemp_land, col=4, type="o", pch=20, ylab="Temperature Deviations")
 lines(u$Xs, col=6, lwd=2)
 xx = c(time(u$Xs), rev(time(u$Xs)))
 yy = c(u$Xs-2*sqrt(u$Ps), rev(u$Xs+2*sqrt(u$Ps)))
@@ -1244,7 +1251,8 @@ ylim=c(0,14), col=culer, xlab=expression(hat(phi)))
 lines(density(phi.yw, bw=.02), lwd=2) # from previous simulation
 u = seq(.75, 1.1, by=.001) # normal approximation
 lines(u, dnorm(u, mean=.96, sd=.03), lty=2, lwd=2)
-legend(.65, 14, legend=c("true distribution", "bootstrap distribution", "normal approximation"), bty="n", lty=c(1,0,2), lwd=c(2,0,2), col=1, pch=c(NA,22,NA), pt.bg=c(NA,culer,NA), pt.cex=2.5)
+legend(.65, 14, bty="n", lty=c(1,0,2), lwd=c(2,0,2), col=1, pch=c(NA,22,NA), 
+   pt.bg=c(NA,culer,NA), pt.cex=2.5, legend=c("true distribution", "bootstrap distribution", "normal approximation"))
 # CIs 
 alf = .025 # 95% CI
 quantile(phi.star.yw, probs = c(alf, 1-alf))
@@ -1294,7 +1302,8 @@ par(mar=c(2.5,2.5,0,0)+.5, mgp=c(1.6,.6,0))
 U = matrix(Z, ncol=5) # Z was created in the analysis above
 culer = c(rgb(0,1,0,.4), rgb(0,0,1,.4))
 culers = ifelse(U[,2]<.05, culer[1], culer[2])
-plot(U[,2], U[,1], panel.first=Grid(), pch=21, cex=1.1, bg=culers, xlab=expression(nabla~flu[~t-1]), ylab=expression(nabla~flu[~t]))
+plot(U[,2], U[,1], panel.first=Grid(), pch=21, cex=1.1, bg=culers, 
+     xlab=expression(nabla~flu[~t-1]), ylab=expression(nabla~flu[~t]))
 lines(lowess(U[,2], U[,1], f=2/3), col=6)
 abline(v=.05, lty=2, col=4)
 
