@@ -265,42 +265,43 @@ abline(fit)
 
 Example 3.5
 ```r
-culer = c(rgb(.66,.12,.85), rgb(.12,.66,.85), rgb(.85,.30,.12))
+##-- separate
 par(mfrow=c(3,1))
-tsplot(cmort, main="Cardiovascular Mortality", col=culer[1], type="o", pch=19, ylab="")
-tsplot(tempr, main="Temperature", col=culer[2], type="o", pch=19, ylab="")
-tsplot(part, main="Particulates", col=culer[3], type="o", pch=19, ylab="")
-##
-tsplot(cmort, main="", ylab="", ylim=c(20,130), col=culer[1])
-lines(tempr, col=culer[2])
-lines(part, col=culer[3])   
-legend("topright", legend=c("Mortality", "Temperature", "Pollution"), lty=1, lwd=2, col=culer, bg="white")
-##
+tsplot(cmort, main="Cardiovascular Mortality", col=6, type="o", pch=19, ylab="")
+tsplot(tempr, main="Temperature", col=4, type="o", pch=19, ylab="")
+tsplot(part, main="Particulates", col=2, type="o", pch=19, ylab="")
+
+##-- together 
+dev.new()
+tsplot(cmort, ylab="", ylim=c(20,130), col=astsa.col(6,.8))
+lines(tempr, col=astsa.col(4,.9))
+lines(part, col=astsa.col(2,.8))
+legend("topright", legend=c("Mortality", "Temperature", "Pollution"), lty=1, lwd=2, col=c(6,4,2), bg="white")
+
+##-- scatterplot matrix
+dev.new()  
 panel.cor <- function(x, y, ...){
- usr <- par("usr"); on.exit(par(usr))
- par(usr = c(0, 1, 0, 1))
- r <- round(cor(x, y), 2)
- text(0.5, 0.5, r, cex = 1.75)   
+usr <- par("usr"); on.exit(par(usr))
+par(usr = c(0, 1, 0, 1))
+r <- round(cor(x, y), 2)
+text(0.5, 0.5, r, cex = 1.75)
 }
-pairs(cbind(Mortality=cmort, Temperature=tempr, Particulates=part), col="dodgerblue3", lower.panel=panel.cor)
-##
-par(mfrow = 2:1)
-plot(tempr, tempr^2) # collinear
-cor(tempr, tempr^2)
-temp = tempr - mean(tempr)
-plot(temp, temp^2) # not collinear
-cor(temp, temp^2)
-##
-temp = tempr - mean(tempr) # center temperature
-temp2 = temp^2
-trend = time(cmort) # time
+pairs(cbind(Mortality=cmort, Temperature=tempr, Particulates=part), col=4, lower.panel=panel.cor)
+
+#  Regression
+temp  = tempr-mean(tempr)  # center temperature    
+temp2 = temp^2             # square it  
+trend = time(cmort)        # time
+
 fit = lm(cmort~ trend + temp + temp2 + part, na.action=NULL)
-summary(fit) # regression results
-summary(aov(fit)) # ANOVA table (compare to next line)
-summary(aov(lm(cmort~cbind(trend, temp, temp2, part)))) # Table 3.1
-num = length(cmort) # sample size
-AIC(fit)/num - log(2*pi) # AIC
-BIC(fit)/num - log(2*pi) # BIC
+            
+summary(fit)       # regression results
+summary(aov(fit))  # ANOVA table   (compare to next line)
+summary(aov(lm(cmort~cbind(trend, temp, temp2, part)))) # Table 2.1
+
+num = length(cmort)                                     # sample size
+AIC(fit)/num - log(2*pi)                                # AIC 
+BIC(fit)/num - log(2*pi)                                # BIC   
 ```
 
 Example 3.6
@@ -319,6 +320,7 @@ fit = lm(salmon~time(salmon), na.action=NULL) # the regression
 par(mfrow=c(2,1)) # plot transformed data
 tsplot(resid(fit), main="detrended salmon price")
 tsplot(diff(salmon), main="differenced salmon price")
+dev.new()
 par(mfrow=c(2,1)) # plot their ACFs
 acf1(resid(fit), 48, main="detrended salmon price")
 acf1(diff(salmon), 48, main="differenced salmon price")
@@ -419,18 +421,18 @@ lines(lowess(soi, f=.05), lwd=2, col=4) # El Ni&ntilde;o cycle
 lo = predict(loess(soi ~ time(soi)), se=TRUE)
 trnd = ts(lo$fit, start=1950, freq=12) # put back ts attributes
 lines(trnd, col=6, lwd=2)
-L = trnd - qt(0.975, lo$df)*lo$se
-U = trnd + qt(0.975, lo$df)*lo$se
-xx = c(time(soi), rev(time(soi)))
-yy = c(L, rev(U))
+ L  = trnd - qt(0.975, lo$df)*lo$se
+ U  = trnd + qt(0.975, lo$df)*lo$se
+ xx = c(time(soi), rev(time(soi)))
+ yy = c(L, rev(U))
 polygon(xx, yy, border=8, col=gray(.6, alpha=.4) )
 ```
 
 
 Example 3.19
 ```r
-plot(tempr, cmort, xlab="Temperature", ylab="Mortality", col='dodgerblue3', panel.first=Grid())
-lines(lowess(tempr,cmort), col=4, lwd=2)
+tsplot(tempr, cmort, type='p', pch=19, xlab="Temperature", ylab="Mortality", col=4)
+lines(lowess(tempr,cmort), col=6, lwd=2)
 ```
 
 
@@ -446,13 +448,13 @@ x = window(hor, start=2002)
 par(mfrow = c(4,1), cex.main=1)
 out = stl(x, s.window=15)$time.series
 tsplot(x, main='Hawaiian Occupancy Rate', ylab='% rooms', col=8)
-text(x, labels=1:4, col=culer, cex=1.25)
+ text(x, labels=1:4, col=culer, cex=1.25)
 tsplot(out[,1], main="Seasonal", ylab='% rooms',col=8)
-text(out[,1], labels=1:4, col=culer, cex=1.25)
+ text(out[,1], labels=1:4, col=culer, cex=1.25)
 tsplot(out[,2], main="Trend", ylab='% rooms', col=8)
-text(out[,2], labels=1:4, col=culer, cex=1.25)
+ text(out[,2], labels=1:4, col=culer, cex=1.25)
 tsplot(out[,3], main="Noise", ylab='% rooms', col=8)
-text(out[,3], labels=1:4, col=culer, cex=1.25)
+ text(out[,3], labels=1:4, col=culer, cex=1.25)
 ```
 
 [<sub>top</sub>](#table-of-contents)
@@ -530,9 +532,9 @@ ACF  = ARMAacf(ar=c(1.5,-.75), ma=0, 24)[-1]
 PACF = ARMAacf(ar=c(1.5,-.75), ma=0, 24, pacf=TRUE)
 par(mfrow=1:2)
 tsplot(ACF, type="h", xlab="lag", ylim=c(-.8,1))
-abline(h=0)
+ abline(h=0, col=8)
 tsplot(PACF, type="h", xlab="lag", ylim=c(-.8,1))
-abline(h=0)      
+ abline(h=0, col=8)      
 ```
 
 
@@ -564,34 +566,40 @@ acf1(ma1, plot=FALSE)[1]
 Example 4.27
 ```r
 tsplot(diff(log(varve)), col=4, ylab=expression(nabla~log~X[~t]), main="Transformed Glacial Varves")
+dev.new()
 acf2(diff(log(varve)))
-#
-x = diff(log(varve)) # data
+
+### 
+x = diff(log(varve))       # data
 r = acf1(x, 1, plot=FALSE) # acf(1)
-c(0) -> w -> z -> Sc -> Sz -> Szw -> para # initialize
-num = length(x) # = 633
-## Estimation
-para[1] = (1-sqrt(1-4*(r^2)))/(2*r) # MME
-niter = 12
+c(0) -> w -> z -> Sc -> Sz -> Szw -> para # initialize all variables
+num = length(x)            # 633
+
+## Gauss-Newton Estimation
+para[1] = (1-sqrt(1-4*(r^2)))/(2*r)  # MME to start (not very good)
+niter   = 12             
 for (j in 1:niter){
-for (i in 2:num){ w[i] = x[i]   - para[j]*w[i-1]
-                  z[i] = w[i-1] - para[j]*z[i-1]
-}
-Sc[j]  = sum(w^2)
-Sz[j]  = sum(z^2)
-Szw[j] = sum(z*w)
+ for (t in 2:num){ w[t] = x[t]   - para[j]*w[t-1]
+                   z[t] = w[t-1] - para[j]*z[t-1]
+ }
+ Sc[j]  = sum(w^2)
+ Sz[j]  = sum(z^2)
+ Szw[j] = sum(z*w)
 para[j+1] = para[j] + Szw[j]/Sz[j]
 }
-# Results
+## Results
 cbind(iteration=1:niter-1, thetahat=para[1:niter], Sc, Sz)
-## Plot conditional SS
+
+## Plot conditional SS and results
 c(0) -> w -> cSS
 th = -seq(.3, .94, .01)
 for (p in 1:length(th)){
-for (i in 2:num){ w[i] = x[i] - th[p]*w[i-1]
-}
+ for (t in 2:num){ w[t] = x[t] - th[p]*w[t-1] 
+ }
 cSS[p] = sum(w^2)
 }
+
+dev.new()
 tsplot(th, cSS, ylab=expression(S[c](theta)), xlab=expression(theta))
 abline(v=para[1:12], lty=2, col=4) # add previous results to plot
 points(para[1:12], Sc[1:12], pch=16, col=4)
