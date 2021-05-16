@@ -674,11 +674,16 @@ Example 5.6
 layout(1:2, heights=2:1)
 tsplot(gnp, col=4)
 acf1(gnp, main="")
+
 ##-- Figure 5.4 --##
+dev.new()
 tsplot(diff(log(gnp)), ylab="GNP Growth Rate", col=4)
 abline(h = mean(diff(log(gnp))), col=6)
+
 ##-- Figure 5.5 --##
+dev.new()
 acf2(diff(log(gnp)), main="")
+
 ##
 sarima(diff(log(gnp)), 0,0,2) # MA(2) on growth rate
 sarima(diff(log(gnp)), 1,0,0) # AR(1) on growth rate
@@ -703,7 +708,7 @@ sarima(log(varve), 1, 1, 1, no.constant=TRUE) # ARIMA(1,1,1)
 Example 5.9 
 ```r
 uspop = c(75.995, 91.972, 105.711, 123.203, 131.669,150.697, 
-         179.323, 203.212, 226.505, 249.633, 281.422, 308.745)
+          179.323, 203.212, 226.505, 249.633, 281.422, 308.745)
 uspop = ts(uspop, start=1900, freq=.1)
 t = time(uspop) - 1955
 reg = lm( uspop~ t+I(t^2)+I(t^3)+I(t^4)+I(t^5)+I(t^6)+I(t^7)+I(t^8) )
@@ -763,6 +768,7 @@ LAG = 1:50/12
 par(mfrow=c(1,2))
 tsplot(LAG,  ACF, type='h', xlab='LAG')
 tsplot(LAG, PACF, type='h', xlab='LAG')
+
 ##-- birth series --##
 tsplot(birth) # monthly number of births in US
 acf2( diff(birth) ) # P/ACF of the differenced birth rate
@@ -770,11 +776,11 @@ acf2( diff(birth) ) # P/ACF of the differenced birth rate
 ##-- seasonal persistence --##
 x = window(hor, start=2002)
 par(mfrow = c(2,1))
-tsplot(x, main="Hawaiian Quarterly Occupancy Rate", ylab=" % rooms", ylim=c(62,86), col=gray(.7))
-text(x, labels=1:4, col=c(3,4,2,6), cex=.8)
-Qx = stl(x,15)$time.series[,1]
-tsplot(Qx, main="Seasonal Component", ylab=" % rooms", ylim=c(-4.7,4.7), col=gray(.7))
-text(Qx, labels=1:4, col=c(3,4,2,6), cex=.8)
+tsplot(x, main="Hawaiian Quarterly Occupancy Rate", ylab=" % rooms", ylim=c(62,86), col=8)
+ text(x, labels=1:4, col=c(3,4,2,6), cex=.8)
+ Qx = stl(x,15)$time.series[,1]
+tsplot(Qx, main="Seasonal Component", ylab=" % rooms", ylim=c(-4.7,4.7), col=8)
+ text(Qx, labels=1:4, col=c(3,4,2,6), cex=.8)
 ```
 
 
@@ -793,6 +799,7 @@ sarima(cardox, p=1,d=1,q=1, P=0,D=1,Q=1,S=12)
 
 sarima.for(cardox, 60, 1,1,1, 0,1,1,12)
 abline(v=2018.9, lty=6)
+
 ##-- for comparison --##
 sarima.for(cardox, 60, 0,1,1, 0,1,1,12) # not shown
 ```
@@ -937,24 +944,24 @@ Example 7.4
 ```r
 par(mfrow=c(2,1)) # raw periodogram
 mvspec(soi, col=rgb(.05,.6,.75), lwd=2)
-rect(1/7, -1e5, 1/3, 1e5, density=NA, col=gray(.5,.2))
-abline(v=1/4, lty=2, col="dodgerblue")
-mtext("1/4", side=1, line=0, at=.25, cex=.75)
+ rect(1/7, -1e5, 1/3, 1e5, density=NA, col=gray(.5,.2))
+ abline(v=1/4, lty=2, col="dodgerblue")
+ mtext("1/4", side=1, line=0, at=.25, cex=.75)
 mvspec(rec, col=rgb(.05,.6,.75), lwd=2)
-rect(1/7, -1e5, 1/3, 1e5, density=NA, col=gray(.5,.2))
-abline(v=1/4, lty=2, col="dodgerblue")
-mtext("1/4", side=1, line=0, at=.25, cex=.75)  
+ rect(1/7, -1e5, 1/3, 1e5, density=NA, col=gray(.5,.2))
+ abline(v=1/4, lty=2, col="dodgerblue")
+ mtext("1/4", side=1, line=0, at=.25, cex=.75)  
 
 #  log redux
 par(mfrow=c(2,1)) # raw periodogram
 mvspec(soi, col=rgb(.05,.6,.75), lwd=2, log='y')
-rect(1/7, 1e-5, 1/3, 1e5, density=NA, col=gray(.5,.2))
-abline(v=1/4, lty=2, col="dodgerblue")
-mtext("1/4", side=1, line=0, at=.25, cex=.75)
+ rect(1/7, 1e-5, 1/3, 1e5, density=NA, col=gray(.5,.2))
+ abline(v=1/4, lty=2, col="dodgerblue")
+ mtext("1/4", side=1, line=0, at=.25, cex=.75)
 mvspec(rec, col=rgb(.05,.6,.75), lwd=2, log='y')
-rect(1/7, 1e-5, 1/3, 1e5, density=NA, col=gray(.5,.2))
-abline(v=1/4, lty=2, col="dodgerblue")
-mtext("1/4", side=1, line=0, at=.25, cex=.75) 
+ rect(1/7, 1e-5, 1/3, 1e5, density=NA, col=gray(.5,.2))
+ abline(v=1/4, lty=2, col="dodgerblue")
+ mtext("1/4", side=1, line=0, at=.25, cex=.75) 
 ```
 
 
@@ -970,13 +977,13 @@ Example 7.5
 ```r
 par(mfrow=c(2,1))
 soi.ave = mvspec(soi, spans=9, col=5, lwd=2)
-rect(1/7, -1e5, 1/3, 1e5, density=NA, col=gray(.5,.2))
-abline(v=.25, lty=2, col=4)
-mtext("1/4", side=1, line=0, at=.25, cex=.75)
+ rect(1/7, -1e5, 1/3, 1e5, density=NA, col=gray(.5,.2))
+ abline(v=.25, lty=2, col=4)
+ mtext("1/4", side=1, line=0, at=.25, cex=.75)
 rec.ave = mvspec(rec, spans=9, col=5, lwd=2)
-rect(1/7, -1e5, 1/3, 1e5, density=NA, col=gray(.5,.2))
-abline(v=.25, lty=2, col=4)
-mtext("1/4", side=1, line=0, at=.25, cex=.75)
+ rect(1/7, -1e5, 1/3, 1e5, density=NA, col=gray(.5,.2))
+ abline(v=.25, lty=2, col=4)
+ mtext("1/4", side=1, line=0, at=.25, cex=.75)
 
 ##-- redo on log scale with CIs --##
 par(mfrow=c(2,1))
@@ -1010,13 +1017,13 @@ plot(kernel("modified.daniell", c(3,3,3)), ylab=expression(h[~k]),
 #
 par(mfrow=c(2,1))
 sois = mvspec(soi, spans=c(7,7), taper=.1, col=5, lwd=2)
-rect(1/7, -1e5, 1/3, 1e5, density=NA, col=gray(.5,.2))
-abline(v=.25, lty=2, col=4)
-mtext("1/4", side=1, line=0, at=.25, cex=.75)
+ rect(1/7, -1e5, 1/3, 1e5, density=NA, col=gray(.5,.2))
+ abline(v=.25, lty=2, col=4)
+ mtext("1/4", side=1, line=0, at=.25, cex=.75)
 recs = mvspec(rec, spans=c(7,7), taper=.1, col=5, lwd=2)
-rect(1/7, -1e5, 1/3, 1e5, density=NA, col=gray(.5,.2))
-abline(v=.25, lty=2, col=4)
-mtext("1/4", side=1, line=0, at=.25, cex=.75)
+ rect(1/7, -1e5, 1/3, 1e5, density=NA, col=gray(.5,.2))
+ abline(v=.25, lty=2, col=4)
+ mtext("1/4", side=1, line=0, at=.25, cex=.75)
 sois$Lh
 sois$bandwidth
 # to find the peaks
@@ -1025,13 +1032,13 @@ sois$details[1:45,]
 ##-- for the logs - not shown in the text --##
 par(mfrow=c(2,1))
 sois = mvspec(soi, spans=c(7,7), taper=.1, col=5, lwd=2, log='yes')
-rect(1/7, 1e-5, 1/3, 1e5, density=NA, col=gray(.5,.2))
-abline(v=.25, lty=2, col=4)
-mtext("1/4", side=1, line=0, at=.25, cex=.75)
+ rect(1/7, 1e-5, 1/3, 1e5, density=NA, col=gray(.5,.2))
+ abline(v=.25, lty=2, col=4)
+ mtext("1/4", side=1, line=0, at=.25, cex=.75)
 recs = mvspec(rec, spans=c(7,7), taper=.1, col=5, lwd=2, log='yes')
-rect(1/7, 1e-5, 1/3, 1e5, density=NA, col=gray(.5,.2))
-abline(v=.25, lty=2, col=4)
-mtext("1/4", side=1, line=0, at=.25, cex=.75)
+ rect(1/7, 1e-5, 1/3, 1e5, density=NA, col=gray(.5,.2))
+ abline(v=.25, lty=2, col=4)
+ mtext("1/4", side=1, line=0, at=.25, cex=.75)
 ```
 
 
