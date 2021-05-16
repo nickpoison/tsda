@@ -1134,6 +1134,13 @@ acf2(res^2, 20)
 library(fGarch)
 gnpr = diff(log(gnp))
 summary( garchFit(~arma(1,0) + garch(1,0), data = gnpr) )
+
+#### Note that garchFit still pulls up: 
+#
+# Warning message:
+# Using formula(x) is deprecated ... 
+#
+### That's their problem, which obviously hasn't been addressed yet.
 ```
 
 
@@ -1141,9 +1148,9 @@ Example 8.2
 ```r
 library(xts)
 djiar = diff(log(djia$Close))[-1]
-acf2(djiar) # exhibits some autocorrelation
+acf2(djiar)    # exhibits some autocorrelation
 u = resid( sarima(djiar, 1,0,0, details=FALSE)$fit )
-acf2(u^2)   # oozes autocorrelation
+acf2(u^2)      # oozes autocorrelation
 library(fGarch)
 summary(djia.g <- garchFit(~arma(1,0)+garch(1,1), data=djiar, cond.dist="std"))
 plot(djia.g, which=3)   
@@ -1160,7 +1167,7 @@ plot(djia.ap)   # to see all plot options
 
 Example 8.4
 ```r
-layout(1:2)
+par(mfrow=2:1)
 acf1(cumsum(rnorm(634)), 100, main="Series: random walk")
 acf1(log(varve), 100, ylim=c(-.1,1)) 
 #
@@ -1180,7 +1187,7 @@ library(arfima)
 summary(varve.fd <- arfima(log(varve), order = c(0,0,0)))
 # residuals
 innov = resid(varve.fd)
-tsplot(innov[[1]]) # not shown
+tsplot(innov[[1]])      # not shown in text
 par(mfrow=2:1)
 acf1(resid(sarima(log(varve),1,1,1, details=FALSE)$fit), main="ARIMA(1,1,1)")
 acf1(innov[[1]], main="Frac Diff")
@@ -1199,18 +1206,23 @@ polygon(xx, yy, border=8, col=gray(.6, alpha=.25) )
 
 Example 8.9
 ```r
-ccf2(cmort, part) # Figure 8.7
-acf2(diff(cmort)) # Figure 8.8 implies AR(1)
+ccf2(cmort, part)    # Figure 8.7
+dev.new()
+acf2(diff(cmort))    # Figure 8.8 implies AR(1)
+dev.new()
 u = sarima(cmort, 1, 1, 0, no.constant=TRUE) # fits well
 cmortw = resid(u$fit)  
-phi = as.vector(u$fit$coef) # -.5064
+phi = as.vector(u$fit$coef)   # -.5064
+
 # filter particluates the same way
 partf = filter(diff(part), filter=c(1, -phi), sides=1)
+
+dev.new()
 ## -- now line up the series - this step is important --##
-both = ts.intersect(cmortw, partf) # line them up
-Mw = both[,1] # cmort whitened
-Pf = both[,2] # part filtered
-ccf2(Mw, Pf) # Figure 8.9 
+both = ts.intersect(cmortw, partf)   # line them up
+Mw = both[,1]   # cmort whitened
+Pf = both[,2]   # part filtered
+ccf2(Mw, Pf)    # Figure 8.9 
 ```
 
 
@@ -1219,36 +1231,43 @@ ccf2(Mw, Pf) # Figure 8.9
 ```r
 # data
 set.seed(101010)
-e = rexp(150, rate=.5); u = runif(150,-1,1); de = e*sign(u)
-dex = 50 + arima.sim(n=100, list(ar=.95), innov=de, n.start=50)
+# make double exp innovations
+e = rexp(150, rate=.5); u = runif(150,-1,1) 
+de = e*sign(u)  
+#
+# generate AR(1) with 'de' innovations
+dex = 50 + sarima.sim(n=100, ar=.95, innov=de, burnin=50)
+#
 layout(matrix(1:2, nrow=1), widths=c(5,2))
 tsplot(dex, col=4, ylab=expression(X[~t]))
 # density - standard Laplace vs normal
 f = function(x) { .5*dexp(abs(x), rate = 1/sqrt(2))}
-curve(f, -5, 5, panel.first=Grid(), col=4, ylab="f(w)", xlab="w")
+curve(f, -5, 5, col=4, ylab="f(w)", xlab="w")
 par(new=TRUE)
 curve(dnorm, -5, 5, ylab="", xlab="", yaxt="no", xaxt="no", col=2) 
 #
 fit = ar.yw(dex, order=1)
-round(cbind(fit$x.mean, fit$ar, fit$var.pred), 2)
+round(est <- cbind(fit$x.mean, fit$ar, sqrt(fit$asy.var.coef)), 2)
 #
+# simulate distribution of phi-hat
 set.seed(111)
 phi.yw = c()
 for (i in 1:1000){
  e  = rexp(150, rate=.5)
  u  = runif(150,-1,1)
  de = e*sign(u)
- x  = 50 + arima.sim(n=100, list(ar=.95), innov=de, n.start=50)
+ x  = 50 + sarima.sim(n=100, ar=.95, innov=de, burnin=50)
  phi.yw[i] = ar.yw(x, order=1)$ar
 } 
-#
-set.seed(666) # not that 666
-fit = ar.yw(dex, order=1) # assumes the data were retained
-m = fit$x.mean # estimate of mean
-phi = fit$ar # estimate of phi
-nboot = 500 # number of bootstrap replicates
-resids = fit$resid[-1] # the 99 residuals
-x.star = dex # initialize x*
+
+
+set.seed(666)               # not that 666
+fit = ar.yw(dex, order=1)   # assumes the data were retained
+m = fit$x.mean              # estimate of mean
+phi = fit$ar                # estimate of phi
+nboot = 500                 # number of bootstrap replicates
+resids = fit$resid[-1]      # the 99 residuals
+x.star = dex                # initialize x*
 phi.star.yw = c()
 # Bootstrap
 for (i in 1:nboot) {
@@ -1259,15 +1278,18 @@ for (i in 1:nboot) {
  }
  phi.star.yw[i] = ar.yw(x.star, order=1)$ar
 }
+
 # Picture
-culer = rgb(0,.5,.5,.5)
-hist(phi.star.yw, 15, main="", prob=TRUE, xlim=c(.65,1.05),
-ylim=c(0,14), col=culer, xlab=expression(hat(phi)))
+dev.new()
+culer = astsa.col(5, .4)
+hist(phi.star.yw, 15, main="", prob=TRUE, xlim=c(.65,1.05), ylim=c(0,15), 
+      col=culer, xlab=expression(hat(phi)))
 lines(density(phi.yw, bw=.02), lwd=2) # from previous simulation
-u = seq(.75, 1.1, by=.001) # normal approximation
-lines(u, dnorm(u, mean=.96, sd=.03), lty=2, lwd=2)
+u = seq(.75, 1.1, by=.001)            # normal approximation
+lines(u, dnorm(u, mean=est[,2], sd=est[,3]), lty=2, lwd=2)
 legend(.65, 14, bty="n", lty=c(1,0,2), lwd=c(2,0,2), col=1, pch=c(NA,22,NA), 
-   pt.bg=c(NA,culer,NA), pt.cex=2.5, legend=c("true distribution", "bootstrap distribution", "normal approximation"))
+   pt.bg=c(NA,culer,NA), pt.cex=2.5, legend=c("true distribution", 
+   "bootstrap distribution", "normal approximation"))
 # CIs 
 alf = .025 # 95% CI
 quantile(phi.star.yw, probs = c(alf, 1-alf))
