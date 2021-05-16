@@ -6,7 +6,6 @@ Using R](http://www.stat.pitt.edu/stoffer/tsda/) but the old entry page will rem
 
 - All the (updated) code used in the text  is in [Rcode.md](https://github.com/nickpoison/tsda/blob/master/Rcode.md)
 
-- When you are in a code block, you can copy the contents of the block by moving your mouse to the upper right corner and clicking on the copy icon ( &#128203; ).
 
 -  You can also download the file `Rcode.md` and use it directly:
 
