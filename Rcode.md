@@ -630,6 +630,9 @@ abline(h=61.8585, col=4)    # display estimated mean
 
 ## Chapter 5
 
+> The way AIC, AICc, and BIC are calculated in `sarima` changed a few versions ago. The values in the text will be a little different than the current values, but the results of any data analysis in the text are the same.
+
+<br/>
 
 
 
