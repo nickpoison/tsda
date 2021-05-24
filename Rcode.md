@@ -10,7 +10,7 @@ Using R](http://www.stat.pitt.edu/stoffer/tsda/)
 
 ```r
 install.packages("remotes")     # only need to do this once 
-remotes::install_github("nickpoison/astsa")
+remotes::install_github("nickpoison/astsa/astsa_build")
 ```
 
 
