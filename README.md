@@ -1,10 +1,6 @@
 ## Time Series for Data Science
 
-- This is the new home of  [Time Series: A Data Analysis Approach
-Using R](http://www.stat.pitt.edu/stoffer/tsda/) but the old entry page will remain for as long as I can keep it on Pitt's server.
-
-
-- All the (updated) code used in the text  is in [Rcode.md](https://github.com/nickpoison/tsda/blob/master/Rcode.md)
+- **All the (updated) code used in the text  is in [Rcode.md](https://github.com/nickpoison/tsda/blob/master/Rcode.md)**
 
 
 -  You can also download the file `Rcode.md` and use it directly:
