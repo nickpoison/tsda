@@ -1,5 +1,8 @@
 ## Time Series for Data Science
 
+<img src="https://github.com/nickpoison/astsa/blob/master/fun_with_astsa/figs/tsda.jpg" alt="tsda"  height="200" > 
+
+
 - All the (updated) code used in the text  is in [Rcode.md](https://github.com/nickpoison/tsda/blob/master/Rcode.md)
 
 
