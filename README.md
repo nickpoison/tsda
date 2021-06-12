@@ -3,18 +3,6 @@
 - **All the (updated) code used in the text  is in [Rcode.md](https://github.com/nickpoison/tsda/blob/master/Rcode.md)**
 
 
--  You can also download the file `Rcode.md` and use it directly:
-
-    - For example, with [Notepad++](https://notepad-plus-plus.org/) and [NpptoR](https://sourceforge.net/projects/npptor/files/npptor%20installer/), just change the file name to `Rcode.R` and you're off...
-    - or use it in [VSCode](https://code.visualstudio.com/) (probably change the name to `Rcode.r` also) ...
-    - or use it with [RStudio](https://www.rstudio.com/products/rstudio/download/#download) for all your business needs.
-
-
-  &#9940; Please note that RStudio and VSCode collect personal information.
-	See	 [RStudio policy guide](https://www.rstudio.com/about/privacy-policy/), especially 	the section on 'Information We Collect'.  And see [VSCode policy guide](https://code.visualstudio.com/docs/getstarted/telemetry), which also tells you how to turn off sending usage data to Microsoft.  
-
-
-
 
 ## astsa
 
