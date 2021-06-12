@@ -1,6 +1,6 @@
 ## Time Series for Data Science
 
-- **All the (updated) code used in the text  is in [Rcode.md](https://github.com/nickpoison/tsda/blob/master/Rcode.md)**
+- All the (updated) code used in the text  is in [Rcode.md](https://github.com/nickpoison/tsda/blob/master/Rcode.md)
 
 
 
