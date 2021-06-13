@@ -9,7 +9,7 @@ Using R](http://www.stat.pitt.edu/stoffer/tsda/)
 &#x2728; While the text was written under `astsa` version 1.9, the code below uses the most recent version, which has some additional capabilities.  You can install the latest version of the package from GitHub:
 
 ```r
-install.packages("remotes")     # only need to do this once 
+install.packages("remotes")     # install it (once) if you don't have the package
 remotes::install_github("nickpoison/astsa/astsa_build")
 ```
 
