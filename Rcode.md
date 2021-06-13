@@ -138,7 +138,8 @@ lines(x, col=6)
 
 Example 1.11
 ```r
-cs = 2*cos(2*pi*(1:500)/50 + .6*pi)
+# cs = 2*cos(2*pi*(1:500)/50 + .6*pi)    # as in the text
+cs = 2*cos(2*pi*(1:500+15)/50)           # same thing 
 w  = rnorm(500,0,1)
 par(mfrow=c(3,1))   
 tsplot(cs, ylab="", main = expression(x[t]==2*cos(2*pi*t/50+.6*pi)))
