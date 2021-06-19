@@ -25,14 +25,14 @@ remotes::install_github("nickpoison/astsa/astsa_build")
 
 ### Table of Contents
   
-  * [Chapter 1](#chapter-1)
-  * [Chapter 2](#chapter-2)
-  * [Chapter 3](#chapter-3)
-  * [Chapter 4](#chapter-4)
-  * [Chapter 5](#chapter-5)
-  * [Chapter 6](#chapter-6)
-  * [Chapter 7](#chapter-7)
-  * [Chapter 8](#chapter-8)
+  * [Chapter 1 - Time Series Elements](#chapter-1)
+  * [Chapter 2 - Correlation and Stationary Time Series ](#chapter-2)
+  * [Chapter 3 - Time Series Regression and EDA ](#chapter-3)
+  * [Chapter 4 - ARMA Models](#chapter-4)
+  * [Chapter 5 - ARIMA Models](#chapter-5)
+  * [Chapter 6 - Spectral Analysis and Filtering](#chapter-6)
+  * [Chapter 7 - Spectral Estimation](#chapter-7)
+  * [Chapter 8 - Additional Topics](#chapter-8)
  
 ---
 
