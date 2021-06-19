@@ -181,9 +181,9 @@ Examples 2.27
 (r = round( acf1(soi, 6, plot=FALSE), 2)) # sample acf values
 # [1] 0.60 0.37 0.21 0.05 -0.11 -0.19
 par(mfrow=c(1,2))
-tsplot(lag(soi,-1), soi, col=4, type='p')
+tsplot(lag(soi,-1), soi, col=4, type='p', xlab='lag(soi,-1)')
  legend("topleft", legend=r[1], bg="white", adj=.45, cex = 0.85)
-tsplot(lag(soi,-6), soi, col=4, type='p')
+tsplot(lag(soi,-6), soi, col=4, type='p', xlab='lag(soi,-6)')
  legend("topleft", legend=r[6], bg="white", adj=.25, cex = 0.8)
 ``` 
 
