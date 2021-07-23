@@ -363,7 +363,7 @@ lag2.plot(soi, rec, 8, col=4, cex=1)  # Figure 3.11
 
 Example 3.14
 ```r
-library(zoo)   # zoo allows easy use of the variable names
+library(zoo)   # zoo allows easy use of variable names
 dummy = ifelse(soi<0, 0, 1) 
 fish = as.zoo(ts.intersect(rec, soiL6=lag(soi,-6), dL6=lag(dummy,-6)))
 summary(fit <- lm(rec~ soiL6*dL6, data=fish, na.action=NULL))
@@ -419,8 +419,9 @@ lines(ksmooth(time(SOI), SOI, "normal", bandwidth=12), lwd=2, col=4)
 Example 3.18
 ```r
 tsplot(soi, col=astsa.col(4,.6))
-lines(lowess(soi, f=.05), lwd=2, col=4) # El Ni&ntilde;o cycle
+lines(lowess(soi, f=.05), lwd=2, col=4) # El Niño cycle
 # lines(lowess(soi), lty=2, lwd=2, col=2) # trend (with default span)
+#- or -#
 ##-- trend with CIs using loess --##
 lo = predict(loess(soi ~ time(soi)), se=TRUE)
 trnd = ts(lo$fit, start=1950, freq=12) # put back ts attributes
@@ -447,6 +448,7 @@ plot(decompose(x)) # not shown
 plot(stl(x, s.window="per")) # not shown
 plot(stl(x, s.window=15))  # nicer version below  
 ##
+
 culer = c(5, 4, 2, 6)
 x = window(hor, start=2002)
 par(mfrow = c(4,1), cex.main=1)
