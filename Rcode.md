@@ -5,7 +5,7 @@
 <img src="https://github.com/nickpoison/astsa/blob/master/fun_with_astsa/figs/tsda.jpg" alt="tsda"  height="200" >  This is an updated version of the code in [Time Series: A Data Analysis Approach Using R](http://www.stat.pitt.edu/stoffer/tsda/) 
 
 
-&#x2728; While the text was written under `astsa` version 1.9, the code below uses the most recent version, which has some additional capabilities.  You can install the latest version of the package from GitHub:
+&#x2728; While the text was written under `astsa` version 1.9, the code below uses the most recent version with some additional capabilities.  You can install the latest version of the package from GitHub:
 
 ```r
 install.packages("remotes")     # install it (once) if you don't have the package
