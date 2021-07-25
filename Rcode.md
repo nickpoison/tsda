@@ -363,15 +363,17 @@ lag2.plot(soi, rec, 8, col=4, cex=1)  # Figure 3.11
 
 Example 3.14
 ```r
-library(zoo)   # zoo allows easy use of variable names
+
 dummy = ifelse(soi<0, 0, 1) 
-fish = as.zoo(ts.intersect(rec, soiL6=lag(soi,-6), dL6=lag(dummy,-6)))
+fish = ts.intersect(rec, soiL6=lag(soi,-6), dL6=lag(dummy,-6))
 summary(fit <- lm(rec~ soiL6*dL6, data=fish, na.action=NULL))
-plot(fish$soiL6, fish$rec, panel.first=Grid(), col='dodgerblue3')
-points(fish$soiL6, fitted(fit), pch=3, col=6) 
-lines(lowess(fish$soiL6, fish$rec), col=4, lwd=2)
+
+tsplot(fish[,'soiL6'], fish[,'rec'], type='p', col=4)
+points(fish[,'soiL6'], fitted(fit), pch=3, col=6) 
+lines(lowess(fish[,'soiL6'], fish[,'rec']), col=4, lwd=2)
+
 tsplot(resid(fit))    # not shown
-acf1(resid(fit))      # and obviously not noise                       
+acf1(resid(fit))      # and obviously not noise                      
 ```
 
 
