@@ -891,7 +891,6 @@ sP = (4/100)*P   # scaled peridogram
 Fr = 0:99/100    # fundamental frequencies
 tsplot(Fr, sP, type="o", xlab="frequency", ylab="scaled periodogram", col=4, ylim=c(0,90))
 abline(v=.5, lty=5)
-abline(v=c(.1,.3,.7,.9), lty=1, col=gray(.9))
 axis(side=1, at=seq(.1,.9,by=.2))
 ```
 
