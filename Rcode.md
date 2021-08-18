@@ -2,10 +2,12 @@
 
 ## R Code Used in the Examples - tsda 
 
-<img src="https://github.com/nickpoison/astsa/blob/master/fun_with_astsa/figs/tsda.jpg" alt="tsda"  height="200" >  This is an updated version of the code in [Time Series: A Data Analysis Approach Using R](http://www.stat.pitt.edu/stoffer/tsda/).
-You may have free access to the text for one year if your organization subscribes to ProQuest.  Go to the [ProQuest login page](https://www.proquest.com/login) and do a search to _find your library or your university, organization or company_. If found, you will be taken to your organization's ProQuest 
+<img align="left" src="https://github.com/nickpoison/astsa/blob/master/fun_with_astsa/figs/tsda.jpg" alt="tsda"  height="200" >  
+This is an updated version of the code in [Time Series: A Data Analysis Approach Using R](http://www.stat.pitt.edu/stoffer/tsda/).
+You may have free access to the text for one year if your organization subscribes to ProQuest.  Go to the <a href="https://www.proquest.com/login" target="_blank">ProQuest login page</a>  and do a search to _find your library or your university, organization or company_. If found, you will be taken to your organization's ProQuest 
 website.  Once there, search for _Time Series: A Data Analysis Approach Using R_ and voilà.  
 
+<br clear="left"/>
 
 &#x2728; While the text was written under `astsa` version 1.9, the code below uses the most recent version with some additional capabilities.  You can install the latest version of the package from GitHub:
 
