@@ -406,12 +406,10 @@ plot(w1, type="l", ylim = c(-.02,.1), xaxt="n", yaxt="n", ann=FALSE)
 
 Example 3.17
 ```r
-tsplot(soi, col=astsa.col(4,.7), ylim=c(-1, 1.15))
-lines(ksmooth(time(soi), soi, "normal", bandwidth=1), lwd=2, col=4)
-# insert
-par(fig = c(.65, 1, .75, 1), new = TRUE)
-gauss <- function(x) { 1/sqrt(2*pi) * exp(-(x^2)/2) }
-curve(gauss(x), -3, 3, xaxt="n", yaxt="n", ann=FALSE)
+tsplot(soi, col=4)
+lines(ksmooth(time(soi), soi, "normal", bandwidth=1), lwd=2, col=6)
+par(fig = c(.65, 1, .75, 1), new = TRUE) # the insert
+curve(dnorm, -3, 3,  xaxt='n', yaxt='n', ann=FALSE)
 
 # 
 SOI = ts(soi, freq=1)
