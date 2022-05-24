@@ -266,6 +266,9 @@ Example 3.1
 summary(fit <- lm(salmon~time(salmon), na.action=NULL))
 tsplot(salmon, col=4, ylab="USD per KG", main="Salmon Export Price")
 abline(fit)
+
+# astsa version 1.5 has a new trend script that can produce Figure 3.1 with 95% CIs as follows:
+trend(salmon, ylab="USD per KG", main="Salmon Export Price")
 ```
 
 Example 3.5
@@ -321,6 +324,17 @@ summary(fit2 <- dynlm(rec~ L(soi,6)))
 
 Example 3.10
 ```r
+# Figures 3.6 and 3.7 can be as follows using the new detrend script
+par(mfrow=2:1) # plot transformed data
+tsplot(detrend(salmon), main="detrended salmon price" )
+tsplot(diff(salmon), main="differenced salmon price" )
+dev.new()
+par(mfrow=2:1) # plot their ACFs
+acf1(detrend(salmon), main="detrended salmon price")
+acf1(diff(salmon), main="differenced salmon price")
+
+
+# as in the text
 fit = lm(salmon~time(salmon), na.action=NULL) # the regression
 par(mfrow=c(2,1)) # plot transformed data
 tsplot(resid(fit), main="detrended salmon price")
@@ -419,6 +433,13 @@ lines(ksmooth(time(SOI), SOI, "normal", bandwidth=12), lwd=2, col=4)
 
 Example 3.18
 ```r
+# the example can be done in 2 lines using the new trend script
+trend(soi, lowess=TRUE)
+lines(lowess(soi, f=.05), lwd=2, col=4) # El Niño cycle
+
+###################
+# as in the text
+###################
 tsplot(soi, col=astsa.col(4,.6))
 lines(lowess(soi, f=.05), lwd=2, col=4) # El Niño cycle
 # lines(lowess(soi), lty=2, lwd=2, col=2) # trend (with default span)
