@@ -4,8 +4,7 @@
 
 <img align="left" src="https://github.com/nickpoison/astsa/blob/master/fun_with_astsa/figs/tsda.jpg" alt="tsda"  height="200"/>  
 This is an updated version of the code in <a href="http://www.stat.pitt.edu/stoffer/tsda/">Time Series: A Data Analysis Approach Using R</a>. 
-You may have free access to the text for one year if your organization subscribes to ProQuest.  Go to the <a href="https://www.proquest.com/login" target="_blank">ProQuest login page</a>  and do a search to <i>find your library or your university, organization or company</i>. If found, you will be taken to your organization's ProQuest 
-website.  Once there, search for <i>Time Series: A Data Analysis Approach Using R</i> and voilà.  
+
 
 <br clear="left"/><br/>
 
