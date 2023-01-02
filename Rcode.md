@@ -6,8 +6,6 @@
 This is an updated version of the code in <a href="http://www.stat.pitt.edu/stoffer/tsda/">Time Series: A Data Analysis Approach Using R</a>. 
 
 
-<br clear="left"/><br/>
-
 &#x2728; While the text was written under `astsa` version 1.9, the code below uses the most recent version with some additional capabilities.  You can install the latest version of the package from GitHub:
 
 ```r
