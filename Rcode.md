@@ -2,7 +2,7 @@
 
 ## R Code Used in the Examples - tsda 
 
-<img align="left" src="https://github.com/nickpoison/astsa/blob/master/fun_with_astsa/figs/tsda.jpg" alt="tsda"  height="200"/>  
+<img align="left" src="https://github.com/nickpoison/astsa/blob/master/fun_with_astsa/figs/tsda.jpg" alt="tsda"  height="220"/>  
 
 This is an updated version of the code in <a href="http://www.stat.pitt.edu/stoffer/tsda/">Time Series: A Data Analysis Approach Using R</a>. 
 
