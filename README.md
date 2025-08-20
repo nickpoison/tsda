@@ -3,7 +3,7 @@
 <img src="https://github.com/nickpoison/astsa/blob/master/fun_with_astsa/figs/tsda.jpg" alt="tsda"  height="200" > 
 
 
-- [A second edition is coming soon](https://github.com/nickpoison/tsda2/blob/main/README.md)
+- [A second edition is coming in 2026](https://github.com/nickpoison/tsda2/blob/main/README.md)
 
 
 - All the (updated) code used in the text  is in [Rcode.md](https://github.com/nickpoison/tsda/blob/master/Rcode.md)
